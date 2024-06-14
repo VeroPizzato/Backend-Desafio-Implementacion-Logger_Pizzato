@@ -81,7 +81,7 @@ const validarNuevoProducto = async (req, res, next) => {
     try {
         if (validarDatos(title, description, price, thumbnail, code, stock, status, category)) {
             const listadoProductos = await productsService.getProducts(req.query)
-            const codeIndex = listadoProductos.docs.findIndex(e => e.code === code)
+            const codeIndex = listadoProductos.docs.findIndex(e => e.code === code)            
             if (codeIndex !== -1) {
                 // res.status(400).json({ error: "Codigo ya existente" })
                 // return
