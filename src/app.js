@@ -31,6 +31,8 @@ const passport = require('passport')
 const initializeStrategy = require('./config/passport.config')
 const { errorHandler } = require('./services/errors/errorHandler')
 
+const { addLogger } = require('../src/utils/logger')
+
 const app = express()
 
 app.use(express.json())
@@ -69,6 +71,8 @@ app.use(cookieParser())
 initializeStrategy()
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(addLogger)
 
 const main = async () => {
 

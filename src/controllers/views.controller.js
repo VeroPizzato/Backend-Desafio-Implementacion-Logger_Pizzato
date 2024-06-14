@@ -20,6 +20,7 @@ class ViewsController {
                 isNotLoggedIn: !isLoggedIn,
             })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -32,6 +33,7 @@ class ViewsController {
                 title: 'Login'
             })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -44,6 +46,7 @@ class ViewsController {
                 title: 'Reset Password'
             })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -56,6 +59,7 @@ class ViewsController {
                 title: 'Register'
             })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -75,6 +79,7 @@ class ViewsController {
                 }
             })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -91,7 +96,7 @@ class ViewsController {
                 user
             })
         } catch (err) {
-            console.log(err)
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })            
         }
@@ -99,7 +104,7 @@ class ViewsController {
 
     async getProductDetail(req, res) {
         try {
-            const prodId = req.pid           
+            const prodId = req.pid
             const product = await this.productsService.getProductById(prodId)
             if (!product) {
                 return product === false
@@ -119,6 +124,7 @@ class ViewsController {
             }
             res.render('detailProduct', data)
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })            
         }
@@ -131,57 +137,58 @@ class ViewsController {
             //agrego una unidad del producto al primer carrito que siempre existe
             const carts = await this.cartsService.getCarts()
             //console.log(JSON.stringify(carts, null, '\t'))    
-            if (!carts) await this.cartsService.addCart([])  
-            await this.cartsService.addProductToCart(carts[0]._id.toString(), prodId, 1)   
-            let product = await this.productsService.getProductById(prodId)         
-            this.mostrarAlertaCompra(res, carts[0]._id.toString(), product)     
+            if (!carts) await this.cartsService.addCart([])
+            await this.cartsService.addProductToCart(carts[0]._id.toString(), prodId, 1)
+            let product = await this.productsService.getProductById(prodId)
+            this.mostrarAlertaCompra(res, carts[0]._id.toString(), product)
             //await this.cartsService.addProductToCart(user.cart, prodId, 1);
             //res.redirect(`/products/detail/${prodId}`)  
         }
         catch (err) {
-            return res.sendServerError(err)            
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
+            return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
     }
 
-    mostrarAlertaCompra = (res, cid, product) => {        
+    mostrarAlertaCompra = (res, cid, product) => {
         const alertaProductoAgregado = {
             icon: 'success',
             title: 'Compra confirmada',
-            text: 'Producto agregado al carrito exitosamente!'           
-        }     
-        
+            text: 'Producto agregado al carrito exitosamente!'
+        }
+
         let data = {
             title: 'Product Detail',
             scripts: ['productoDetail.js'],
             useSweetAlert: true,
-            styles: ['productos.css'],      
+            styles: ['productos.css'],
             useWS: false,
             product,
             cid,
             alertaProductoAgregado
-        }   
-        res.render('detailProduct', data)   
+        }
+        res.render('detailProduct', data)
     }
 
     async getCartById(req, res) {
-        try {                         
+        try {
             const cid = req.cid
             const cart = await this.cartsService.getCartByCId(cid)
             if (!cart) {
                 return cart === false
                     ? res.sendNotFoundError({ message: 'Not found!' }, 404)
                     : res.sendServerError({ message: 'Something went wrong!' })
-            }       
+            }
             let isCartEmpty = null
-            if (cart.products.length === 0){
+            if (cart.products.length === 0) {
                 isCartEmpty = {
                     icon: "info",
                     title: "Carrito Vacio",
-                    text: "No hay productos en el carrito!"           
-                } 
+                    text: "No hay productos en el carrito!"
+                }
             }
-                                   
+
             let data = {
                 title: 'Cart Detail',
                 styles: ['styles.css'],
@@ -191,9 +198,10 @@ class ViewsController {
                 isCartEmpty,
                 cart
             }
-            res.render('detailCart', data)           
+            res.render('detailCart', data)
         }
-        catch (err) {        
+        catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -213,6 +221,7 @@ class ViewsController {
             })
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -241,6 +250,7 @@ class ViewsController {
             // res.status(201).json({ message: "Producto agregado correctamente" })
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -253,6 +263,7 @@ class ViewsController {
             })
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -270,17 +281,33 @@ class ViewsController {
             })
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
     }
 
-    mockingPoducts (req, res) {
+    mockingPoducts(req, res) {
         const products = []
         for (let i = 0; i < 100; i++) {
             products.push(generateProduct())
         }
         res.json(products)
+    }
+
+    loggerTest(req, res) {
+        try {
+            req.logger.http(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.debug(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.info(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.warning(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.error(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.fatal(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+
+            res.sendSuccess('Testeo de logger finalizado')
+        } catch (err) {
+            return res.sendServerError({message: 'Testeo de logger erroneo'})
+        }
     }
 }
 

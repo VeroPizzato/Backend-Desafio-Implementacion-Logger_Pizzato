@@ -17,6 +17,7 @@ class SessionController {
     }
 
     faillogin (req, res) {
+        req.logger.warning(`Usuario no existe o password incorrecto - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
         res.sendUnauthorized('Login failed!')
         //res.send({ status: 'error', message: 'Login failed!' })
     }
@@ -34,6 +35,7 @@ class SessionController {
     }
 
     failregister (req, res) {
+        req.logger.info(`Failed register - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()} `);
         res.sendUserError('Register failed!')
         //res.send({ status: 'error', message: 'Register failed!' })
     }

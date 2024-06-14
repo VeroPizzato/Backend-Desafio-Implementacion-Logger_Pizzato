@@ -14,5 +14,6 @@ module.exports = {
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL,
-    SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD 
+    SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD, 
+    ENVIRONMENT: process.env.ENVIRONMENT
 }

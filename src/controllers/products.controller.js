@@ -36,6 +36,7 @@ class ProductsController {
             return res.sendSuccess(new ProductDTO(products.docs))
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -55,6 +56,7 @@ class ProductsController {
             return res.sendSuccess(new ProductDTO(producto))
             //res.status(200).json(producto)    // HTTP 200 OK
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -69,6 +71,7 @@ class ProductsController {
             res.sendCreatedSuccess('Producto agregado correctamente')
             //return res.status(201).json({ success: true })
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendUserError(err)
             // return res.status(400).json({
             //     message: err.message
@@ -95,6 +98,7 @@ class ProductsController {
             //return res.status(200).json(result)
             return res.sendSuccess(new ProductDTO(datosAUpdate))
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             res.sendUserError(err)
             // return res.status(400).json({
             //     message: err.message
@@ -116,6 +120,7 @@ class ProductsController {
             // return res.status(200).json({ message: "Producto Eliminado correctamente" })    // HTTP 200 OK
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message

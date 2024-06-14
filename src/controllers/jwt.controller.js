@@ -24,6 +24,7 @@ class JwtController {
             //res.status(200).json('Logueado exitosamente!')
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })  
         }
@@ -36,6 +37,7 @@ class JwtController {
             res.sendSuccess(`Welcome ${email}, this is private and protected content`)
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }
@@ -47,6 +49,7 @@ class JwtController {
             //return res.json(req.user);
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             //return res.status(500).json({ message: err.message })
         }

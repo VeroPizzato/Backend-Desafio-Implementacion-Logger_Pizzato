@@ -18,6 +18,7 @@ class CartsController {
             return res.sendSuccess(cartsDTO)
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -38,6 +39,7 @@ class CartsController {
             //res.status(200).json(cartByCID)    // HTTP 200 OK
         }
         catch {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -53,6 +55,7 @@ class CartsController {
             //res.status(201).json({ message: "Carrito agregado correctamente" })  // HTTP 201 OK
 
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             res.sendUserError(err)
             // return res.status(400).json({
             //     message: err.message
@@ -69,6 +72,7 @@ class CartsController {
             res.sendSuccess(`Se agregaron ${quantity} producto/s con ID ${idProd} al carrito con ID ${idCart}`)
             //res.status(200).json(`Se agregaron ${quantity} producto/s con ID ${idProd} al carrito con ID ${idCart}`)    // HTTP 200 OK
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -85,6 +89,7 @@ class CartsController {
             res.status(200).json(`Los productos del carrito con ID ${cartId} se actualizaron exitosamente.`)
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -106,6 +111,7 @@ class CartsController {
             }
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -117,6 +123,7 @@ class CartsController {
             await this.cartsService.deleteCart(cartId)
             res.status(200).json({ message: "Carrito eliminado correctamente" })  // HTTP 200 OK
         } catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({
             //     message: err.message
@@ -139,6 +146,7 @@ class CartsController {
             }
         }
         catch (err) {
+            req.logger.error(`${`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
             // return res.status(500).json({ message: err.message })
         }
@@ -168,6 +176,7 @@ class CartsController {
             }
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
         }
     }
@@ -214,6 +223,7 @@ class CartsController {
             }
         }
         catch (err) {
+            req.logger.error(`${err} - ${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             return res.sendServerError(err)
         }
     }
