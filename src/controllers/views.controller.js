@@ -297,8 +297,8 @@ class ViewsController {
 
     loggerTest(req, res) {
         try {
-            req.logger.http(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
             req.logger.debug(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
+            req.logger.http(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);           
             req.logger.info(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
             req.logger.warning(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
             req.logger.error(`${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`);
