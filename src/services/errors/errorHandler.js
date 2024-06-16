@@ -15,7 +15,7 @@ const errorHandler = (error, req, res, next) => {
             res.status(400).send({ status: 'error', error: error.name, cause: error.cause })           
             break;
         case ErrorCodes.DATABASE_ERROR:
-            req.logger.fatal(error.name+ `${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
+            req.logger.error(error.name+ `${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             res.status(500).send({ status: 'error', error: error.name, cause: error.cause })
             break;
         case ErrorCodes.ROUTING_ERROR:
@@ -23,7 +23,7 @@ const errorHandler = (error, req, res, next) => {
             res.status(500).send({ status: 'error', error: error.name, cause: error.cause })
             break;
         case ErrorCodes.NOT_FOUND:
-            req.logger.warning(error.name+ `${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
+            req.logger.fatal(error.name+ `${req.method} en ${req.url} - ${new Date().toLocaleDateString()}`)
             res.status(404).send({ status: 'error', error: error.name, cause: error.cause })
             break;
         default:
